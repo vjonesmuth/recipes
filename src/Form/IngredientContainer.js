@@ -1,134 +1,64 @@
-import React from 'react';
-import RecipeConfig from './RecipeConfig';
+import React from "react";
+import Ingredient from "./Ingredient";
 
-const recipeConfig = new RecipeConfig();
-const textAreaConfig = recipeConfig.getTextAreaConfig();
-
-export default class IngredientCreateForm extends React.Component {
-
+export default class IngredientContainer extends React.Component {
   /**
-   * RecipeCreateForm constructor.
-   * 
+   * IngredientContainer constructor.
+   *
    * @public
    */
   constructor(props) {
     super(props);
-    console.log("constructor props: ", props);
+  }
 
-    this.handleIngredientChange = this.handleIngredientChange.bind(this);
+  /**
+   * Get the collection of values.
+   */
+  get valuesCollection() {
+    return this.props.value;
+  }
+
+  /**
+   * Get whether we should delete the the group.
+   */
+  get shouldShowDeleteButton() {
+    return this.valuesCollection.length > 1;
+  }
+
+  /**
+   * Handle recipe change events.
+   *
+   * @param {event}
+   * @public
+   */
+  handleFieldChange = index => newValuesObject => {
+    const newValuesCollection = [...this.valuesCollection];
+    newValuesCollection[index] = newValuesObject;
+    this.props.onChange(newValuesCollection);
   };
 
   /**
-   * Handle ingredient changes.
-   * 
-   * @param {index}
-   * @public
-   */
-  handleIngredientChange = (index) => (event) => {
-    const newIngredient = this.props.ingredients.map(
-      (ingredient, ingredientIndex) => {
-        if (index !== ingredientIndex) {
-          return ingredient;
-        }
-        return { ...ingredient, [event.target.name]: event.target.value };
-      }
-    );
-
-    this.setState({ ingredients: newIngredient });
-  }
-
-  /**
-   * Add an ingredient group.
-   * 
-   * @public
-   */
-  handleAddIngredient = () => {
-    this.setState({
-      ingredients: this.props.ingredients.concat([{ name: "" }])
-    });
-  }
-
-  /**
-   * Remove an ingredient group.
-   * 
-   * @public
-   */
-  handleRemoveIngredient = (idx) => () => {
-    this.setState({
-      ingredients: this.propsprops.ingredients.filter(
-        (s, sidx) => idx !== sidx
-      )
-    });
-  }
-
-  /**
    * Render the form.
-   * 
+   *
    * @public
    */
   render() {
-    return <div className="ingredients">
-      <h4>Ingredients</h4>
+    return (
+      <div>
+        <h4>Ingredients</h4>
 
-      {this.props.ingredients.map((ingredient, index) => (
-        <div className="ingredient">
-          <input
-            type="text"
-            name="name"
-            key={"name_" + index}
-            placeholder={`Ingredient #${index + 1} name`}
-            value={ingredient.name}
-            onChange={this.handleIngredientChange(index)}
+        {this.valuesCollection.map((subform, index) => (
+          <Ingredient
+            key={index}
+            value={subform}
+            onChange={this.handleFieldChange(index)}
+            showDeleteButton={this.shouldShowDeleteButton}
+            requestDeleteGroup={() => this.props.requestDeleteGroup(index)}
           />
+        ))}
 
-          <input
-            type="text"
-            name="amount"
-            key={"amount_" + index}
-            placeholder={`Ingredient #${index + 1} amount`}
-            value={ingredient.amount}
-            onChange={this.handleIngredientChange(index)}
-          />
-
-          <select
-            name={ingredient.measurementType}
-            key={"measurementType_" + index}
-            value={ingredient.measurementType}
-            onChange={this.handleIngredientChange(index)}
-          >
-            {recipeConfig.getMeasurementTypes().map(measurement => (
-              <option value={measurement.value}>
-                {measurement.value}
-              </option>
-            ))}
-          </select>
-
-          <div>
-            <label>
-              Description:
-              <textarea
-                name="description"
-                rows={textAreaConfig.rows}
-                cols={textAreaConfig.columns}
-                key={"description_" + index}
-                value={ingredient.description}
-                onChange={this.handleIngredientChange(index)}
-              />
-            </label>
-          </div>
-
-          <button
-            type="button"
-            onClick={this.handleRemoveIngredient(index)}
-            className="small"
-          >
-            -
-          </button>
-        </div>
-      ))}
-      <button type="button" onClick={this.handleAddIngredient} className="small">
-        Add Ingredient
-      </button>
-    </div>
+        <button type='button' onClick={this.props.requestAddGroup}>Add</button>
+      </div>
+    );
   }
 }

@@ -6,7 +6,7 @@ export default class RecipeConfig {
     /**
      * Get the ingredient measurement types.
      */
-    getMeasurementTypes() {
+    get measurementTypes() {
         return [
             {
                 name: 'Teaspoon(s)',
@@ -54,7 +54,7 @@ export default class RecipeConfig {
     /**
      * Get textare configuration.
      */
-    getTextAreaConfig() {
+    get textAreaConfig() {
         return {
             rows: '5',
             columns: '30',

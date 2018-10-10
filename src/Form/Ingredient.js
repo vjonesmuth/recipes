@@ -1,17 +1,22 @@
 import React from "react";
+import RecipeConfig from "./RecipeConfig";
 
-export default class ChildForm extends React.Component {
+const recipeConfig = new RecipeConfig();
+
+export default class Ingredient extends React.Component {
   /**
-   * ChildForm constructor.
+   * Ingredient constructor.
    *
    * @public
    */
   constructor(props) {
     super(props);
-    console.log("ChildForm constructor this.props: ", this.props);
   }
 
-  get valuesObject() {
+  /**
+   * Get the values of this objects properties.
+   */
+  get ingredientValues() {
     return this.props.value;
   }
 
@@ -24,7 +29,7 @@ export default class ChildForm extends React.Component {
   handleFieldChange = () => event => {
     const inputElement = event.target;
 
-    let newValuesObject = { ...this.valuesObject };
+    let newValuesObject = { ...this.ingredientValues };
     newValuesObject[inputElement.name] = inputElement.value;
 
     this.props.onChange(newValuesObject);
@@ -39,9 +44,9 @@ export default class ChildForm extends React.Component {
     return (
       <div>
         <input
-          type="text"
-          name="name"
-          value={this.props.value.name}
+          type='text'
+          name='name'
+          value={this.ingredientValues.name}
           onChange={this.handleFieldChange()}
         />
 
@@ -49,15 +54,15 @@ export default class ChildForm extends React.Component {
           <label>
             Description:
             <textarea
-              name="description"
-              rows="5"
-              cols="30"
+              name='description'
+              rows={recipeConfig.textAreaConfig.rows}
+              cols={recipeConfig.textAreaConfig.columns}
               value={this.props.value.description}
               onChange={this.handleFieldChange()}
             />
           </label>
 
-          {this.props.showDeleteButton ? (<button type="button" onClick={this.props.requestDeleteGroup}>Delete</button>) : null}
+          {this.props.showDeleteButton ? (<button type='button' onClick={this.props.requestDeleteGroup}>Delete</button>) : null}
         </div>
       </div>
     );
