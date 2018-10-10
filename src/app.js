@@ -1,8 +1,9 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import RecipeCreateForm from "./Form/RecipeCreateForm";
+// import RecipeCreateForm from "./Form/RecipeCreateForm";
+import ParentForm from "./Test/ParentForm";
 
 ReactDOM.render(
-  <RecipeCreateForm />,
-  document.getElementById("recipe-form")
+  <ParentForm />,
+  document.getElementById("form")
 );

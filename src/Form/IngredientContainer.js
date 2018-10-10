@@ -19,15 +19,6 @@ export default class IngredientCreateForm extends React.Component {
   };
 
   /**
-   * Handle componentWillReceiveProps.
-   *
-   * @param {*} props 
-   */
-  componentWillReceiveProps(props) {
-    console.log("componentWillReceiveProps() props", props);
-  }
-
-  /**
    * Handle ingredient changes.
    * 
    * @param {index}
