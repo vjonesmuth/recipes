@@ -1,0 +1,33 @@
+# ignore these
+.*
+~*
+node_modules/
+dist/
+web/
+.DS_Store
+ehthumbs.db
+Thumbs.db
+*.sublime-project
+*.sublime-workspace
+*.log
+*.sql
+*.sqlite
+*.com
+*.class
+*.dll
+*.exe
+*.o
+*.so
+*.7z
+*.dmg
+*.gz
+*.iso
+*.jar
+*.rar
+*.tar
+*.zip
+
+#track these
+!.gitignore
+!.babelrc
+!.eslintrc

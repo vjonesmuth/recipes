@@ -1,0 +1,23 @@
+{
+    "parser": "babel-eslint",
+    "extends": [
+        "eslint:recommended",
+        "plugin:react/recommended"
+    ],
+    "rules": {
+        "indent": ["error", 2]
+    },
+    "env": {
+        "browser": true,
+        "node": true
+    },
+    "settings": {
+        "import/resolver" : {
+            "node": {
+                "extensions": [".js", ".jsx"],
+                "path": ["src"]
+            }
+        }
+    },
+    "plugins": ["import", "react"]
+}
