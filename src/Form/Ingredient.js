@@ -1,5 +1,5 @@
-import React from "react";
-import RecipeConfig from "./RecipeConfig";
+import React from 'react';
+import RecipeConfig from './RecipeConfig';
 
 const recipeConfig = new RecipeConfig();
 
@@ -43,18 +43,21 @@ export default class Ingredient extends React.Component {
   render() {
     return (
       <div>
-        <input
-          type='text'
-          name='name'
-          value={this.ingredientValues.name}
-          onChange={this.handleFieldChange()}
-        />
+        <label>
+          Name
+          <input
+            type="text"
+            name="name"
+            value={this.ingredientValues.name}
+            onChange={this.handleFieldChange()}
+          />
+        </label>
 
         <div>
           <label>
             Description:
             <textarea
-              name='description'
+              name="description"
               rows={recipeConfig.textAreaConfig.rows}
               cols={recipeConfig.textAreaConfig.columns}
               value={this.props.value.description}
@@ -62,7 +65,11 @@ export default class Ingredient extends React.Component {
             />
           </label>
 
-          {this.props.showDeleteButton ? (<button type='button' onClick={this.props.requestDeleteGroup}>Delete</button>) : null}
+          {this.props.showDeleteButton ? (
+            <button type="button" onClick={this.props.requestDeleteGroup}>
+              Delete
+            </button>
+          ) : null}
         </div>
       </div>
     );

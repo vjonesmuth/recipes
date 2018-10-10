@@ -1,8 +1,10 @@
 import React from 'react';
 import ChildContainer from './IngredientContainer';
-import RecipeConfig from "./RecipeConfig";
+import RecipeConfig from './RecipeConfig';
+import StorageHandler from '../StorageHandler';
 
 const recipeConfig = new RecipeConfig();
+const storageHandler = new StorageHandler('recipe');
 
 export default class Recipe extends React.Component {
   /**
@@ -24,8 +26,17 @@ export default class Recipe extends React.Component {
         }
       ]
     };
+    this.assignStoredData();
 
     this.handleSubmit = this.handleSubmit.bind(this);
+  }
+
+  assignStoredData = () => {
+    const storageData = storageHandler.getData();
+    console.log('assign', storageData);
+    if (JSON.stringify(storageData) !== JSON.stringify(this.state)) {
+      this.state = storageData;
+    }
   }
 
   /**
@@ -86,6 +97,8 @@ export default class Recipe extends React.Component {
    * @public
    */
   handleSubmit = event => {
+    console.log('handleSubmit this.state :', this.state);
+    storageHandler.writeData(this.state);
     const { name, description, ingredients } = this.state;
 
     let message =
